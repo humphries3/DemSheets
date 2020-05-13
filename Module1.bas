@@ -1,6 +1,8 @@
 Attribute VB_Name = "Module1"
 Option Explicit
-Public gFilSelDir As Boolean
+'''''''''''''''
+Public Const gAppNamVer = "DemSheets v1f"
+Public gFrmFilSelCmd As String
 
 Public Type typShCtl
     Sh As Worksheet
@@ -11,7 +13,7 @@ Public Type typShCtl
     End Type
     
 Public logCtl As typShCtl
-
+'
 Function CombSheets() As Boolean
 ''''''''''''''''''''''''''''''''
 Dim Fd As FileDialog
@@ -21,10 +23,14 @@ Dim Fn As String
 ''''''''''''''''
 frmFilSel.Show vbModal
 
-Select Case True
-
+Select Case gFrmFilSelCmd
+    
+    Case "cancel"
+    CombSheets = True
+    Exit Function
+    
     'Directory selection requested:
-    Case gFilSelDir
+    Case "dir"
     Set Fd = Application.FileDialog(msoFileDialogFolderPicker)
     Fd.Title = "Select a Folder for consolidation"
     Fd.AllowMultiSelect = False
@@ -53,7 +59,7 @@ Select Case True
         End Select
     
     'Individual file selection requested
-    Case Else
+    Case "files"
     Set Fd = Application.FileDialog(msoFileDialogFilePicker)
     Fd.AllowMultiSelect = True
     Fd.Filters.Add "Documents", "*.xls; *.xlsx"
@@ -74,7 +80,10 @@ Select Case True
         Case Else
         CombSheets = True
         End Select
-    
+        
+    Case Else
+    MsgBox "Application error(2)'"
+    Exit Function
     End Select
     
 End Function
@@ -163,7 +172,7 @@ For Each Sh In OutWbk.Worksheets
         End Select
     Next Sh
 Application.DisplayAlerts = True
-
+'
 '1.5 name and save output book:
 fnSuggest = "DemSheets-Consol-" & Format(Now, "yyyymmdd-hhmmss") & ".xlsx"
 Set Fd = Application.FileDialog(msoFileDialogSaveAs)

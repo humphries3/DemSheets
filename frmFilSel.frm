@@ -15,12 +15,17 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+Private Sub ctlCancel_Click()
+gFrmFilSelCmd = "cancel"
+Unload Me
+End Sub
+
 Private Sub ctlSelDir_Click()
-gFilSelDir = True
+gFrmFilSelCmd = "dir"
 Unload Me
 End Sub
 
 Private Sub ctlSelFil_Click()
-gFilSelDir = False
+gFrmFilSelCmd = "files"
 Unload Me
 End Sub
