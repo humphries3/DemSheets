@@ -1,7 +1,5 @@
 ﻿Option Explicit
 
 Private Sub Workbook_Open()
-'gContinue = True
 frmFunSel.Show vbModeless
-  'Call Main
 End Sub

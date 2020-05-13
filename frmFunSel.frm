@@ -14,13 +14,9 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub ctlCombinFils_Click()
-'gFunction = "combsheets"
 Call CombSheets
-'Unload Me
 End Sub
 
 Private Sub ctlDone_Click()
-'gFunction = "done"
 ThisWorkbook.Application.Quit
-'Unload Me
 End Sub
